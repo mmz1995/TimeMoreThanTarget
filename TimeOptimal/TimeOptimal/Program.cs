@@ -62,6 +62,8 @@ namespace TimeOptimal
                                     //可以直接使用
                                     ChooseList.Add(prep);                                  
                                     targetTime = targetTime - prep.time;
+                                    max1Time = targetTime;
+                                    max2Time = targetTime;
                                 }
                             }
                         }
@@ -75,8 +77,24 @@ namespace TimeOptimal
                                 {
                                     if (max1Time > 0 && max1Time > 60)
                                     {
-                                        max1TempList.Add(prep); //这一条结束了
-                                        max1Time -= prep.time;
+                                        if (prep.time > 60)
+                                        {
+                                            max1TempList.Add(prep); //这一条结束了
+                                            max1Time -= prep.time;                                        
+                                        }else if(prep.time > 5)
+                                        {
+                                            max2TempList.Add(prep);
+                                            max2Time -= prep.time;
+                                        }
+                                        else
+                                        {
+                                            if (max2Time > 0)
+                                            {
+                                                minTempList.Add(prep);
+                                                max2Time -= prep.time;
+                                            }
+                                        }
+                                        
                                     }
                                     else if (max2Time > 0 && max2Time > 5)
                                     {
